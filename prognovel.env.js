@@ -28,11 +28,13 @@ export default () => {
       SITE_TITLE: SITE_METADATA?.site_title || "ProgNovel App",
       IMAGE_RESIZER_SERVICE: SITE_METADATA?.image_resizer_service || "",
       GA_TRACKING_ID: process.env.GA_TRACKING_ID || "",
+      PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID || "",
       IS_DEMO: process.env.IS_DEMO || false,
       NOVEL_LIST: SITE_METADATA?.novels || [],
       STATIC_BANNER_IMAGES: IS_STATIC_API || isValidHttpUrl(SITE_METADATA.image_resizer_service),
       // app vars from build time
       SITE_METADATA,
+      POCKETBASE_URL: process.env.POCKETBASE_URL || "",
       // chunks of novels metadata
       NOVEL_TITLES: Object.keys(NOVELS_METADATA).reduce((list, novel) => {
         list[novel] = NOVELS_METADATA[novel].title;

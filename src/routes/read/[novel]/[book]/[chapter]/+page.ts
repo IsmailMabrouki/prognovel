@@ -1,9 +1,6 @@
-import { browser } from "$app/env";
-import {
-  checkTableOfContentExists,
-  prefetchNextChapter,
-  prefetchChapter,
-} from "$lib/utils/read-page";
+import { browser } from "$app/environment";
+import { prefetchChapter, prefetchNextChapter } from "$lib/utils/read-page/fetch-content";
+import { checkTableOfContentExists } from "$lib/utils/read-page/navigation";
 export const prerender = false;
 
 /** @type {import('@sveltejs/kit').PageLoad} */

@@ -7,10 +7,10 @@
   import { Panel } from "$lib/utils/read-page/vars";
   import { fly, fade } from "svelte/transition";
   import { onDestroy, tick } from "svelte";
-  import { showStatsAndOptions } from "$lib/store/read-page/read-page-state";
+  import { showStatsAndOptions } from "$lib/store/read-page/state";
   import { windowLock, windowUnlock } from "$lib/utils/window/lock";
   import AdjustFont from "$lib/components/read-page/options/settings/AdjustFont.svelte";
-  import { isBrowser } from "$lib/store/states";
+  import { browser } from "$app/environment";
 
   let body;
   let panel = Panel.Stats;
@@ -41,7 +41,7 @@
   };
 
   showStatsAndOptions.subscribe((show: boolean) => {
-    if (!isBrowser) return;
+    if (!browser) return;
     if (show) {
       windowLock(body);
     } else {

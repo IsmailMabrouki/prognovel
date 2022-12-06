@@ -1,13 +1,17 @@
 import { get as getStore } from "svelte/store";
 import { offlineDB } from "$lib/utils/offline-reading/db";
-import { chaptersLoaded, chaptersAppended, toc, currentChapterCursor } from "$lib/store/read-page";
-import { getLoadingPlaceholder, getErrorPlaceholder, getChapterUrlFromList } from "./index";
+// import { chaptersLoaded, chaptersAppended, toc, currentChapterCursor } from "$lib/store/read-page";
+import { getLoadingPlaceholder, getErrorPlaceholder } from "./placeholder";
+import { getChapterUrlFromList } from "./slug";
 import { connectionErrorPlaceholder } from "./errors";
-import { currentNovel, isBrowser } from "$lib/store/states";
+import { currentNovel } from "$lib/store/states";
 import { ChapterState } from "./vars";
 import { getChapterStoreKey } from "./navigation";
 import type { Chapter } from "$typings";
 import { getChapterUrl } from "./slug";
+import { browser } from "$app/environment";
+import { chaptersLoaded, currentChapterCursor, toc } from "$lib/store/read-page/vars";
+import { chaptersAppended } from "$lib/store/read-page/state";
 
 const PREFETCH_CHAPTER = parseInt(import.meta.env.PREFETCH_CHAPTER ?? "3");
 
@@ -190,7 +194,7 @@ export function appendChapter(
   }
 }
 
-if (isBrowser) {
+if (browser) {
   (window as any).showLoadedChapters = () => {
     console.log(getStore(chaptersLoaded));
   };

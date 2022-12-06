@@ -1,12 +1,7 @@
 <script lang="ts">
-  import { siteMetadata } from "$lib/store/states";
-  import { fly, fade } from "svelte/transition";
-  import { getCoverURLPath } from "$lib/utils/images";
-  import { stringSearch } from "$lib/utils/string";
   import IconSvg from "$lib/components/IconSVG.svelte";
   import searchIcon from "$lib/assets/feather-icons/search.svg?raw";
 
-  import { frameTick } from "$lib/utils/animation";
   import NavSearchResult from "./NavSearchResult.svelte";
   import { SITE_TITLE } from "$lib/_setting";
   import { XCircleIcon } from "svelte-feather-icons";
@@ -18,7 +13,6 @@
   function onBlur() {
     setTimeout(() => {
       const activeEl = document.activeElement;
-      console.log(activeEl.classList);
       if (
         activeEl.classList.contains("search-result-item") ||
         activeEl.classList.contains("result-body") ||
@@ -36,7 +30,8 @@
 
 <svelte:window
   on:keyup={(e) => {
-    if (e.key === "/") input.focus();
+    if (e.key === "/" && (document.activeElement === document.body || !document.activeElement))
+      input.focus();
     if (e.key === "Escape" && document.activeElement === input) input.blur();
   }}
 />
@@ -130,7 +125,7 @@
         padding-left: 2em;
         padding-right: 1.825em;
         font-size: 1.2em;
-        margin-right: 1em;
+        margin-right: 0.5em;
         box-sizing: border-box;
         // font-family: "Courier New", Courier, monospace;
         // transform: translateX(150px);

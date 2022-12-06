@@ -7,15 +7,9 @@
  */
 
 import { derived, writable, Writable, Readable, get as getStore } from "svelte/store";
-import { createDerivedNovelsMetadata } from "$lib/utils/novel-page";
-import {
-  showAdjustFont,
-  showComments,
-  showStatsAndOptions,
-  showTOC,
-} from "./read-page/read-page-state";
-import { showAffiliateReferrer, showDownload, showRevshareStats } from "./novel-page";
-import { browser } from "$app/env";
+
+import { showAdjustFont, showComments, showStatsAndOptions, showTOC } from "./read-page/state";
+import { browser } from "$app/environment";
 import type { SiteMetadata, CredentialMode, NovelsMetadata } from "$typings";
 
 // metadata
@@ -26,19 +20,16 @@ export const novelsData: Writable<NovelsMetadata> = writable({});
 // app state
 export const page: Writable<any> = writable({});
 export const path: Readable<string> = derived([page], ([currentPage]) => {
-  if (!isBrowser) return "";
+  if (!browser) return "";
   return currentPage?.url?.pathname || document.location.pathname;
 });
 
 // user
-export const user: Writable<any> = writable({});
+// export const user: Writable<any> = writable({});
 export const credentialMode: Writable<CredentialMode> = writable("prompt");
 
 // novel
 export const currentNovel: Writable<string> = writable("");
-export const liteNovelsMetadata: Readable<any> = derived(siteMetadata, ($meta: SiteMetadata) => {
-  return createDerivedNovelsMetadata($meta);
-});
 
 // utils
 export const isDownloading: Writable<boolean> = writable(false);
@@ -47,10 +38,6 @@ export const isSaveData: Writable<boolean> = writable(false);
 export const disableAnimations: Writable<boolean> = writable(false);
 
 export const showSettings: Writable<boolean> = writable(false);
-
-export const isBrowser: boolean = browser;
-
-export { isWEBP } from "$lib/utils/images";
 
 const readPageState = [showAdjustFont, showStatsAndOptions, showTOC, showComments];
 export function showReadPageWindow(state: any): void {
@@ -61,3 +48,5 @@ export function showReadPageWindow(state: any): void {
     });
   state.set(!Boolean(getStore(state)));
 }
+
+export const errorMessages: Writable<any[]> = writable([]);
