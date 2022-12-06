@@ -6,4 +6,4 @@ command = "npm run build"
 directory = "functions-netlify"
 
 [template.environment]
-BACKEND_API = "Your Cloudflare Workers backend URL"
+BACKEND_API = "calm-leaf-7985.ismailmabrouki.workers.dev"
